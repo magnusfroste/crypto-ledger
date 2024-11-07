@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Container, Box } from '@mui/material';
+import { Navigation } from './components/Navigation';
+import { Dashboard, Transactions, Wallets, Tax, Ledger } from './pages';
+import { TransactionProvider } from './contexts/TransactionContext';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <TransactionProvider>
+      <BrowserRouter>
+        <Navigation />
+        <Container>
+          <Box sx={{ my: 4 }}>
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/wallets" element={<Wallets />} />
+              <Route path="/transactions" element={<Transactions />} />
+              <Route path="/ledger" element={<Ledger />} />
+              <Route path="/tax" element={<Tax />} />
+            </Routes>
+          </Box>
+        </Container>
+      </BrowserRouter>
+    </TransactionProvider>
   );
 }
 
